@@ -41,7 +41,7 @@ void main() {
     // kotlin "나의 나이는 ${myAge} 입니다."
     print('나의 나이는 $myAge 입니다.');
     final myBirth = testClass.birth(
-        year:1,
+        year:1999,
         month: 12,
         day: 1,);
     print('나의 $myBirth');
