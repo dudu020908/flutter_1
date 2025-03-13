@@ -2,7 +2,7 @@ void main() {
 
     try {
         throw Exception('Error');
-        
+
         print('Try');
     }
     catch(e){
@@ -42,7 +42,7 @@ void main() {
     print('나의 나이는 $myAge 입니다.');
     final myBirth = testClass.birth(
         year:1,
-        month: 1,
+        month: 12,
         day: 1,);
     print('나의 $myBirth');
 }
