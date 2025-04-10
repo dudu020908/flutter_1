@@ -1,7 +1,19 @@
+import 'package:daelim_2025/app/router/app_route.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
+
+  final _title = 'Get Started with \nTracking Your Health!';
+  final _description =
+      'Calculate your BMI and stay on top of your wellness journey, effortlessly.';
+  TextStyle get _titleStyle => TextStyle(
+    color: Color(0xFFFFFFFF),
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+  );
+  TextStyle get _descStyle => TextStyle(color: Color(0xFFC6C3f9), fontSize: 15);
   //앱 이름
   Widget _buildAppname() {
     return Text(
@@ -19,34 +31,39 @@ class StartScreen extends StatelessWidget {
   Widget _buildImg() {
     return Image.asset('assets/images/bmi_bike.png');
   }
-
-  //타이틀
+  /*
   Widget _buildTitle() {
-    return Text(
-      'Get Started with \nTracking Your Health!',
-      style: TextStyle(
-        color: Color(0xFFFFFFFF),
-        fontSize: 25,
-        fontWeight: FontWeight.bold,
-      ),
-      textAlign: TextAlign.left,
-    );
+    return Text(_title, style: _titleStyle, textAlign: TextAlign.left);
   }
 
   //설명
   Widget _buildDescription() {
-    return Text(
-      'Calculate your BMI and stay on top of your wellness journey, effortlessly.',
-      style: TextStyle(color: Color(0xFFC6C3f9), fontSize: 15),
-      textAlign: TextAlign.left,
+    return Text(_description, style: _descStyle, textAlign: TextAlign.left);
+  }*/
+
+  //타이틀과 설명을 묶은 위젯
+  Widget _buildTitleDesc() {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(text: _title, style: _titleStyle),
+          TextSpan(text: '\n'),
+          WidgetSpan(child: SizedBox(height: 30)),
+          TextSpan(text: _description, style: _descStyle),
+        ],
+      ),
     );
   }
 
   //시작 버튼
-  Widget _buildStartButton() {
+  Widget _buildStartButton(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: ElevatedButton(onPressed: () {}, child: Text('Get Started')),
+      child: ElevatedButton(
+        onPressed: () => context.go(AppRoute.main.toPath),
+        style: ElevatedButton.styleFrom(foregroundColor: Color(0xFF081854)),
+        child: Text('Get Started'),
+      ),
     );
   }
 
@@ -64,18 +81,19 @@ class StartScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 30),
 
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 60),
                 _buildAppname(),
                 SizedBox(height: 60),
                 _buildImg(),
                 SizedBox(height: 95),
-                _buildTitle(),
+                _buildTitleDesc(),
+                /*_buildTitle(),
                 SizedBox(height: 15),
-                _buildDescription(),
+                _buildDescription(),*/
                 SizedBox(height: 38),
-                _buildStartButton(),
+                _buildStartButton(context),
               ],
             ),
           ),
