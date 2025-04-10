@@ -22,6 +22,7 @@ class MainScreen extends StatelessWidget {
   Widget _buildMainButton(BuildContext context) {
     return SizedBox(
       width: double.infinity,
+      height: 75,
       child: ElevatedButton(
         onPressed: () => context.go(AppRoute.result.toPath),
         style: ElevatedButton.styleFrom(
