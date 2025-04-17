@@ -93,7 +93,11 @@ class StartScreen extends StatelessWidget {
                 SizedBox(height: 15),
                 _buildDescription(),*/
                 SizedBox(height: 38),
-                _buildStartButton(context),
+                SizedBox(
+                  width: double.infinity,
+                  height: 75,
+                  child: _buildStartButton(context),
+                ),
               ],
             ),
           ),

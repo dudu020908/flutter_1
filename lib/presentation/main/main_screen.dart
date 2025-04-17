@@ -1,28 +1,52 @@
 import 'package:daelim_2025/app/router/app_route.dart';
+import 'package:daelim_2025/presentation/common/widgets/whitebox.dart';
+import 'package:daelim_2025/presentation/main/Widgets/height_box.dart';
+import 'package:daelim_2025/presentation/main/Widgets/in_de_container.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatelessWidget {
-  MainScreen({super.key});
-  final _containerDecoration = BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(15),
-  );
-  Widget _buildMainname() {
-    return Text(
-      'BMI CALCULATOR',
-      style: TextStyle(color: Color(0xFF081854), fontSize: 18),
-    );
-  }
+  const MainScreen({super.key});
 
-  Widget _buildContainer() {
-    return Container(height: 120, decoration: _containerDecoration);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF4F3FF),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30, bottom: 90),
+          child: Column(
+            children: [
+              SizedBox(height: 30),
+              Text(
+                'BMI CALCULATOR',
+                style: TextStyle(fontSize: 18, color: Color(0xFF081854)),
+              ),
+              SizedBox(height: 25),
+              Row(
+                children: [
+                  Expanded(child: InDeContainer(title: 'Age')),
+                  SizedBox(width: 20),
+                  Expanded(child: InDeContainer(title: 'Weight(kg)')),
+                ],
+              ),
+              SizedBox(height: 25),
+              HeightBox(),
+              SizedBox(height: 25),
+              Whitebox(padding: EdgeInsets.all(25), child: SizedBox.shrink()),
+              SizedBox(height: 38),
+
+              SizedBox(child: _buildMainButton(context)),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildMainButton(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 75,
       child: ElevatedButton(
         onPressed: () => context.go(AppRoute.result.toPath),
         style: ElevatedButton.styleFrom(
@@ -30,45 +54,6 @@ class MainScreen extends StatelessWidget {
           backgroundColor: Color(0xFF6C63FF),
         ),
         child: Text('Calculate BMI'),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF4F3FF),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30, right: 30, bottom: 90),
-          /*  child: Container(
-            alignment: Alignment.center,
-            width: 280,
-            margin: const EdgeInsets.symmetric(horizontal: 30),*/
-          child: Column(
-            spacing: 25,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 30),
-              _buildMainname(),
-              Row(
-                spacing: 20,
-                children: [
-                  Expanded(child: _buildContainer()),
-                  Expanded(child: _buildContainer()),
-                ],
-              ),
-              _buildContainer(),
-              _buildContainer(),
-              SizedBox(height: 38),
-              SizedBox(
-                width: double.infinity,
-                height: 75,
-                child: _buildMainButton(context),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
