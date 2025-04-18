@@ -9,15 +9,22 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: AppRoute.start.toPath,
+      name: AppRoute.start.name,
       builder: (context, state) => StartScreen(),
     ),
     GoRoute(
       path: AppRoute.main.toPath,
+      name: AppRoute.main.name,
       builder: (context, state) => MainScreen(),
     ),
     GoRoute(
       path: AppRoute.result.toPath,
-      builder: (context, state) => ResultScreen(),
+      name: AppRoute.result.name,
+      builder: (context, state) {
+        final bmi = state.uri.queryParameters['bmi'];
+        //가져올 값
+        return ResultScreen(bmi: double.parse(bmi!));
+      },
     ),
   ],
 );
