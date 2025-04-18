@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:daelim_2025/app/router/app_route.dart';
-import 'package:daelim_2025/presentation/common/widgets/whitebox.dart';
 import 'package:daelim_2025/presentation/main/Widgets/height_box.dart';
 import 'package:daelim_2025/presentation/main/Widgets/in_de_container.dart';
 import 'package:daelim_2025/presentation/main/Widgets/gender_box.dart';
@@ -28,19 +27,7 @@ class _MainScreenState extends State<MainScreen> {
     final chHeight = _height.round() / 100;
     final bmi = _weight / (chHeight * chHeight);
     debugPrint('BMI : $bmi');
-    if (bmi < 18.5) {
-      debugPrint('저체중');
-    } else if (18.5 <= bmi && bmi < 23) {
-      debugPrint('정상체중');
-    } else if (23 <= bmi && bmi < 25) {
-      debugPrint('비만전단계');
-    } else if (25 <= bmi && bmi < 30) {
-      debugPrint('1단계비만');
-    } else if (23 <= bmi && bmi < 35) {
-      debugPrint('2단계비만');
-    } else {
-      debugPrint('3단계비만');
-    }
+
     context.pushNamed(
       AppRoute.result.name,
       queryParameters: {'bmi': bmi.toStringAsFixed(2)},
@@ -68,30 +55,41 @@ class _MainScreenState extends State<MainScreen> {
                     child: InDeContainer(
                       title: 'Age',
                       value: _age,
-                      onChanged: (val) => setState(() => _age = val),
+                      onMinus:
+                          () =>
+                              setState(() => _age = (_age > 0) ? _age - 1 : 0),
+                      onPlus: () => setState(() => _age += 1),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Expanded(
                     child: InDeContainer(
                       title: 'Weight(kg)',
                       value: _weight,
-                      onChanged: (val) => setState(() => _weight = val),
+                      onMinus:
+                          () => setState(
+                            () => _weight = (_weight > 0) ? _weight - 1 : 0,
+                          ),
+                      onPlus: () => setState(() => _weight += 1),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               HeightBox(
-                onChanged: (val) {
-                  _height = val;
+                onChanged: (height) {
+                  setState(() {
+                    _height = height;
+                  });
                 },
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               GenderBox(
-                onChanged: (gender) => setState(() => _gender = gender),
+                onChanged: (gender) {
+                  _gender = gender;
+                },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(child: _buildMainButton(context)),
             ],
           ),

@@ -32,15 +32,15 @@ class _HeightBoxState extends State<HeightBox> {
             ),
           ),
           Slider(
-            min: 50,
-            max: 300,
+            min: 50.0,
+            max: 300.0,
             value: _height,
             activeColor: const Color(0xFF6c63FF),
-            onChanged: (height) {
+            onChanged: (double value) {
               setState(() {
-                _height = height;
+                _height = value;
               });
-              widget.onChanged(height);
+              widget.onChanged(_height);
             },
           ),
           const Row(

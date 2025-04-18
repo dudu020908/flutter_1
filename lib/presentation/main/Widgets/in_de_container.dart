@@ -1,40 +1,21 @@
 import 'package:daelim_2025/presentation/common/widgets/whitebox.dart';
 import 'package:daelim_2025/presentation/main/Widgets/circle_icon_button.dart';
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart' show LucideIcons;
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-class InDeContainer extends StatefulWidget {
+class InDeContainer extends StatelessWidget {
   final String title;
   final int value;
-  final ValueChanged<int>? onChanged;
+  final VoidCallback onMinus;
+  final VoidCallback onPlus;
 
   const InDeContainer({
     super.key,
     required this.title,
     required this.value,
-    this.onChanged,
+    required this.onMinus,
+    required this.onPlus,
   });
-
-  @override
-  State<InDeContainer> createState() => _InDeContainerState();
-}
-
-class _InDeContainerState extends State<InDeContainer> {
-  late int _value;
-
-  @override
-  void initState() {
-    super.initState();
-    _value = widget.value;
-  }
-
-  void _updateValue(int newValue) {
-    setState(() => _value = newValue);
-    widget.onChanged?.call(_value);
-  }
-
-  void onPlus() => _updateValue(_value + 1);
-  void onMinus() => _updateValue((_value > 0) ? _value - 1 : 0);
 
   @override
   Widget build(BuildContext context) {
@@ -43,30 +24,31 @@ class _InDeContainerState extends State<InDeContainer> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(widget.title, style: const TextStyle(fontSize: 18)),
+          Text(title, style: const TextStyle(fontSize: 18)),
           Text(
-            '$_value',
+            '$value',
             style: const TextStyle(
               fontSize: 40,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF6c63FF),
+              color: Color(0xFF6C63FF),
             ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 20,
             children: [
               CircleIconButton(
                 onTap: onMinus,
                 icon: LucideIcons.minus,
                 title: '',
-                value: _value,
+                value: value,
               ),
               const SizedBox(width: 20),
               CircleIconButton(
                 onTap: onPlus,
                 icon: LucideIcons.plus,
                 title: '',
-                value: _value,
+                value: value,
               ),
             ],
           ),
