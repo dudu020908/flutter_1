@@ -1,20 +1,22 @@
-import 'package:daelim_2025/presentation/common/widgets/whitebox.dart';
 import 'package:flutter/material.dart';
+import 'package:daelim_2025/presentation/common/widgets/whitebox.dart';
 
 class HeightBox extends StatefulWidget {
-  const HeightBox({super.key});
+  final ValueChanged<double> onChanged;
+
+  const HeightBox({super.key, required this.onChanged});
 
   @override
   State<HeightBox> createState() => _HeightBoxState();
 }
 
 class _HeightBoxState extends State<HeightBox> {
-  double _height = 175;
+  double _height = 100.0;
 
   @override
   Widget build(BuildContext context) {
     return Whitebox(
-      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
+      padding: const EdgeInsets.all(18),
       child: Column(
         children: [
           const Text(
@@ -22,9 +24,9 @@ class _HeightBoxState extends State<HeightBox> {
             style: TextStyle(fontSize: 16, color: Color(0xFF081854)),
           ),
           Text(
-            _height.toInt().toString(),
+            _height.toStringAsFixed(1),
             style: const TextStyle(
-              fontSize: 40,
+              fontSize: 60,
               fontWeight: FontWeight.bold,
               color: Color(0xFF6c63FF),
             ),
@@ -33,11 +35,12 @@ class _HeightBoxState extends State<HeightBox> {
             min: 50,
             max: 300,
             value: _height,
-            activeColor: Color(0xFF6c63FF),
-            onChanged: (val) {
+            activeColor: const Color(0xFF6c63FF),
+            onChanged: (height) {
               setState(() {
-                _height = val;
+                _height = height;
               });
+              widget.onChanged(height);
             },
           ),
           const Row(
